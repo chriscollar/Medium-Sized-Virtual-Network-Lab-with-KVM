@@ -12,6 +12,22 @@ The network interfaces will be designed as if the equipment was a Netgate Physic
 - **LAN Interface**: Connects to internal VLANs and provides routing between them.
 - **Firewall Rules**: Configured to allow internal traffic while restricting unauthorized access.
 
+VLANs will be configured via pfsense. Communication will be set up for inter-vlan routing and will exit pfsense via the LAN interface. Internet is transmitted to pfsense via the WAN interface. Below is the table outlining the VLAN and interface configuration
+
+| Interface  | Function                     | IP Address     | Notes                     |
+|------------|------------------------------|---------------|---------------------------|
+| vtnet0     | WAN                          | DHCP / Static | Internet-facing interface |
+| vtnet01    | Default Gateway              | 10.11.0.1     | Main gateway for LAN      |
+| vtnet02    | Servers                      | 10.11.1.1     | Server network            |
+| vtnet03    | VLAN 8 - Rocky Linux Console | 10.11.8.1     | Admin access              |
+| vtnet04    | VLAN 10 - Cameras            | 10.11.10.1    | IP cameras network        |
+| vtnet05    | VLAN 20 - Printers           | 10.11.20.1    | Printer VLAN              |
+| vtnet06    | VLAN 30 - Phones             | 10.11.30.1    | VoIP phone network        |
+| vtnet07    | VLAN 40 - IT Dept.           | 10.11.40.1    | IT department VLAN        |
+| vtnet08    | VLAN 50 - Sales Dept.        | 10.11.50.1    | Sales department VLAN     |
+| vtnet09    | VLAN 60 - Payroll Dept.      | 10.11.60.1    | Payroll department VLAN   |
+
+
 ## Server Infrastructure
 Server Insfrastucture is designed primarily as a Windows environment utilizing Windows Server 2022 with Load Balancing. File Server will be running a minimal deployment of Ubuntu Server. The Ubuntu Servers are set with failover to prevent data loss. 
 - **Domain Controllers**: Two Windows Server VMs configured in VLAN 2 for redundancy and load balancing.
